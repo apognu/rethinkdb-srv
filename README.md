@@ -28,7 +28,14 @@ RDB_CLUSTER_SRV_ADDRESS=rethinkdb.discovery.internal
 The Docker image would be run with the following command:
 
 ```
-$ --join slave-02.appscho.lab:22222 --join slave-03.appscho.lab:33333
+$ rethinkdb --join all --join slave-02.appscho.lab:22222 --join slave-03.appscho.lab:33333
+```
+
+## Usage
+
+```
+$ docker pull apognu/rethinkdb-srv
+$ docker run -e RDB_CLUSTER_SRV_ADDRESS=rethinkdb.discovery.internal apognu/rethinkdb-srv [--rethinkdb-option...]
 ```
 
 ## Settings

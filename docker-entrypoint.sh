@@ -3,11 +3,13 @@
 RDB_CLUSTER_RETRY_COUNT="${RDB_CLUSTER_RETRY_COUNT:-3}"
 RDB_CLUSTER_RETRY_INTERVAL="${RDB_CLUSTER_RETRY_INTERVAL:-5}"
 
-if which "$1" &> /dev/null; then
+if [ "$1" != 'rethinkdb' ] && which "$1" &> /dev/null; then
   exec "$@"
 fi
 
-set -- rethinkdb --bind all "$@"
+if [ "${1:0:1}" = '-' ]; then
+  set -- rethinkdb --bind all "$@"
+fi
 
 RETRY=0
 if [ ! -z "$RDB_CLUSTER_SRV_ADDRESS" ]; then
